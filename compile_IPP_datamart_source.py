@@ -15,6 +15,7 @@ def process_ended():
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
     print("IPP DM Source compilation completed on", str_date_time)
+    print(" ")
 
 
 def compile_excel_files(folder_path, output_file):
@@ -48,6 +49,7 @@ def compile_excel_files(folder_path, output_file):
     # Concatenate the list of DataFrames into one
     compiled_data = pd.concat(dfs, ignore_index=True)
 
+    # Drop duplicates based on all columns
     compiled_data = compiled_data.drop_duplicates()
 
     # Write the compiled data to a new CSV file

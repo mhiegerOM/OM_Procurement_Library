@@ -13,6 +13,7 @@ def process_ended():
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
     print("Invoice LI DM Source compilation completed on", str_date_time)
+    print(" ")
 
 
 def compile_excel_files(folder_path, output_file):
@@ -40,21 +41,21 @@ def compile_excel_files(folder_path, output_file):
     compiled_data = pd.concat(dfs, ignore_index=True)
 
     # Drop duplicates based on all columns
-    clean_data = compiled_data.drop_duplicates()
+    compiled_data = compiled_data.drop_duplicates()
 
     # Convert date columns to datetime dtype
     date_columns = ['Last Updated Date', 'PO Order Date', 'Invoice Created Date', 'Local Payment Date']
-    clean_data.loc[:, date_columns] = clean_data.loc[:, date_columns].apply(lambda x: pd.to_datetime(x, format='%m/%d/%y'))
+    compiled_data.loc[:, date_columns] = compiled_data.loc[:, date_columns].apply(lambda x: pd.to_datetime(x, format='%m/%d/%y'))
 
     # Function to find the most recent date among three columns
     def find_latest_date(row):
         return max(row['Last Updated Date'], row['PO Order Date'], row['Invoice Created Date'], row['Local Payment Date'])
 
     # Apply the function row-wise to find the latest date
-    clean_data['Latest Record Date'] = clean_data.apply(find_latest_date, axis=1)
+    compiled_data['Latest Record Date'] = compiled_data.apply(find_latest_date, axis=1)
 
     # Write the compiled data to a new CSV file
-    clean_data.to_csv(output_file, index=False)
+    compiled_data.to_csv(output_file, index=False)
     print(f"Compiled data saved to {output_file}")
 
 # Example usage

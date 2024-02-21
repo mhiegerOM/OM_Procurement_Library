@@ -4,18 +4,15 @@ from datetime import datetime
 
 def process_begun():
 
-    # Create timestamp for start of process
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
-    print("Supplier Info DM Source compilation began on", str_date_time)
+    print("TEST process began on", str_date_time)
 
 def process_ended():
 
-    # Create timestamp for end of process
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
-    print("Supplier Info DM Source compilation completed on", str_date_time)
-    print(" ")
+    print("TEST process ended on", str_date_time)
 
 
 def compile_excel_files(folder_path, output_file):
@@ -42,16 +39,13 @@ def compile_excel_files(folder_path, output_file):
     # Concatenate the list of DataFrames into one
     compiled_data = pd.concat(dfs, ignore_index=True)
 
-    # Drop duplicates based on all columns
-    compiled_data = compiled_data.drop_duplicates()
-
     # Write the compiled data to a new CSV file
     compiled_data.to_csv(output_file, index=False)
     print(f"Compiled data saved to {output_file}")
 
 # Example usage
-folder_path = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Supplier Info Datamart files'
-output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Supplier Info DM Source.csv'
+folder_path = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/DATAMART COMPILE TEST'
+output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/DATAMART COMPILE TEST/Invoice DM TEST.csv'
 
 compile_excel_files(folder_path, output_file)
 

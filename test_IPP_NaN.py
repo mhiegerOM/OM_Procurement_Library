@@ -7,14 +7,14 @@ def process_begun():
     # Create timestamp for start of process
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
-    print("Supplier Info DM Source compilation began on", str_date_time)
+    print("IPP DM Source compilation began on", str_date_time)
 
 def process_ended():
 
     # Create timestamp for end of process
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
-    print("Supplier Info DM Source compilation completed on", str_date_time)
+    print("IPP DM Source compilation completed on", str_date_time)
     print(" ")
 
 
@@ -33,25 +33,40 @@ def compile_excel_files(folder_path, output_file):
     # Initialize an empty list to store DataFrames
     dfs = []
 
+    # Define only payments in progress
+    #payments_to_keep = ['payment_in_progress']
+
     # Loop through each Excel file and append its data to the list
     for excel_file in excel_files:
         file_path = os.path.join(folder_path, excel_file)
         df = pd.read_excel(file_path)
+
+        # Remove all statuses except 'payment_in_progress'
+        #df = df[df['Status'] == payments_to_keep]
+        
         dfs.append(df)
 
     # Concatenate the list of DataFrames into one
     compiled_data = pd.concat(dfs, ignore_index=True)
 
+    nan_values = compiled_data.isna().sum()
+    print("NaN values in all columns:")
+    print(nan_values)
+
     # Drop duplicates based on all columns
     compiled_data = compiled_data.drop_duplicates()
+
+    nan_values = compiled_data.isna().sum()
+    print("NaN values in all columns:")
+    print(nan_values)
 
     # Write the compiled data to a new CSV file
     compiled_data.to_csv(output_file, index=False)
     print(f"Compiled data saved to {output_file}")
 
 # Example usage
-folder_path = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Supplier Info Datamart files'
-output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Supplier Info DM Source.csv'
+folder_path = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/IPP Datamart files'
+output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/IPP DM Source.csv'
 
 compile_excel_files(folder_path, output_file)
 

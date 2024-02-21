@@ -13,6 +13,7 @@ def process_ended():
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
     print("Invoice DM Source compilation completed on", str_date_time)
+    print(" ")
 
 
 def compile_excel_files(folder_path, output_file):

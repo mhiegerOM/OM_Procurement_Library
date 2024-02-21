@@ -7,14 +7,15 @@ def process_begun():
     # Create timestamp for start of process
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
-    print("IPP DM Source compilation began on", str_date_time)
+    print("New Supplier Req compilation began on", str_date_time)
 
 def process_ended():
 
     # Create timestamp for end of process
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
-    print("IPP DM Source compilation completed on", str_date_time)
+    print("New Supplier Req compilation completed on", str_date_time)
+    print(" ")
 
 
 def compile_excel_files(folder_path, output_file):
@@ -38,7 +39,7 @@ def compile_excel_files(folder_path, output_file):
         df = pd.read_excel(file_path)
 
         # Remove all statuses except 'payment_in_progress'
-        df = df[df['Status'].isin(['Applied', 'Applied Manually', 'Approved'])]
+        df = df[df['Status'].isin(['applied', 'applied_manually', 'approved'])]
         
         dfs.append(df)
 
