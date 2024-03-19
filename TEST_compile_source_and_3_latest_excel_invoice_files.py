@@ -1,6 +1,8 @@
 import os
 import pandas as pd
-from datetime import datetime  
+from datetime import datetime 
+#from pathlib import Path
+import glob 
 
 pd.options.mode.copy_on_write = True
 
@@ -17,12 +19,17 @@ def process_ended():
     print("Invoice DM Source compilation completed on", str_date_time)
     print(" ")
 
-def compile_excel_files(folder_path, output_file):
+def compile_excel_files(existing_file, folder_path, output_file):
 
     process_begun()
 
-    # Get a list of all Excel files in the folder
-    excel_files = [file for file in os.listdir(folder_path) if file.endswith(('.xls', '.xlsx'))]
+    DM_df=pd.read_csv(existing_file, dtype=Inv_dtype_dict)
+
+    DM_df= DM_df.to_excel(os.path.join(folder_path, 'invoice_DM_temp.xlsx'))
+
+    # Get a list of the last 4 Excel files in the folder
+    excel_files = sorted(glob.glob(os.path.join(folder_path, "*.xlsx")), key=os.path.getmtime, reverse=True)[:4]
+
 
     # Check if there are any Excel files in the folder
     if not excel_files:
@@ -85,6 +92,7 @@ def remove_dupes_from_csv_source(output_file, output_file2):
 folder_path = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Invoice Datamart files/'
 output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Invoice DM Source dedup temp.csv'
 output_file2 = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Invoice DM Source dedup TEST.csv'
+existing_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Invoice DM Source.csv'
 
 Inv_dtype_dict = {'Invoice #': 'str',
 'Supplier': 'str',
@@ -130,7 +138,7 @@ Inv_dtype_dict = {'Invoice #': 'str',
 'Unanswered Comments': 'str',
 'Latest Record Date': 'str'}
 
-compile_excel_files(folder_path, output_file)
+compile_excel_files(existing_file, folder_path, output_file)
 
 remove_dupes_from_csv_source(output_file2, output_file2)
 

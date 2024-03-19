@@ -42,8 +42,11 @@ def compile_excel_files(folder_path, output_file):
     # Concatenate the list of DataFrames into one
     compiled_data = pd.concat(dfs, ignore_index=True)
 
+    #order by last updated date this will ensure latest records show first when manually viewing final source
+    compiled_data = compiled_data.sort_values(by='Last Updated Date', ascending=False)
+
     # Drop duplicates based on all columns
-    compiled_data = compiled_data.drop_duplicates()
+    compiled_data = compiled_data.drop_duplicates(subset=['PO ID', 'Last Updated Date'])
 
     # Write the compiled data to a new CSV file
     compiled_data.to_csv(output_file, index=False)
