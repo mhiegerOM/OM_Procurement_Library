@@ -18,7 +18,7 @@ def process_ended():
     print("Invoice DM Source compilation completed on", str_date_time)
     print(" ")
 
-def load_latest_excel_files(folder_path, num_files=3):
+def load_latest_excel_files(folder_path, num_files=5):
     # Get the list of all excel files in the folder
     excel_files = glob.glob(f"{folder_path}/*.xlsx")
     
@@ -77,7 +77,7 @@ def compile_excel_files(folder_path, output_file):
 
 # Example usage
 folder_path = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Invoice Datamart files/'
-output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/DATAMART COMPILE TEST/Final Result/Invoice DM TEST Source.csv'
+output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Invoice DM Source.csv'
 
 # Inv_dtype_dict = {'Invoice #': 'str',
 # 'Supplier': 'str',

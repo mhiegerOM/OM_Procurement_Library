@@ -1,0 +1,15 @@
+#gmail_credentials
+gmail:
+  username: mhieger@onemedical.com
+  gmailpassword: C4ssia1rene!
+
+#snowflake_okta_credential_connection
+snowflake:
+  account: ADS_ROLE
+  warehouse: TABLEAU_WH
+  database: OM_DB_ADS
+  schema: ADS_SCHEMA
+  user: MHIEGER
+  role: ADS_ROLE
+  session_parameters:
+    APPLICATION: 'Python Script'
