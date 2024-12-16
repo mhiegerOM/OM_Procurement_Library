@@ -16,7 +16,7 @@ def process_ended():
     print("Invoice LI DM Source compilation completed on", str_date_time)
     print(" ")
 
-def load_latest_excel_files(folder_path, num_files=3):
+def load_latest_excel_files(folder_path, num_files=5):
     # Get the list of all excel files in the folder
     excel_files = glob.glob(f"{folder_path}/*.xlsx")
     

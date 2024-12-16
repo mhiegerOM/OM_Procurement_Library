@@ -8,13 +8,13 @@ def process_begun():
 
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
-    print("Weekly Invoice Dataset Set Compilation began on", str_date_time)
+    print("Monthly Addendum Invoice Dataset Set Compilation began on", str_date_time)
 
 def process_ended():
 
     timestamp = datetime.now()
     str_date_time = timestamp.strftime("%Y-%m-%d @ %H:%M:%S")
-    print("Weekly Invoice Dataset Set Compilation completed on", str_date_time)
+    print("Monthly Addendum Invoice Dataset Set Compilation completed on", str_date_time)
     print(" ")
 
 def dedupe_csv(folder_path, output_file):
@@ -24,15 +24,25 @@ def dedupe_csv(folder_path, output_file):
     #file_path = os.path.join(folder_path, 'Invoice DM TEST.csv')
     file_path = os.path.join(folder_path, 'Invoice DM Source.csv')
 
+    #list of terms to filter evaluated suppliers
     supplier_list_strings = ['amazon','imagefirst','image first','medline','medpro'
-                        ,'approved storage & waste hauling','stericycle']
+                        ,'approved storage & waste hauling','stericycle','advowaste'
+                        ,'aurora capital - alpha bio','aurora capital - medical waste','bio clean'
+                        ,'biomedical waste services','cyntox','sharpsmart','Go Green Destruction Services LLC'
+                        ,'Hazardous Waste Experts','Healthwise Services','Heartland Medical Waste Disposal'
+                        ,'MCF Systems','Mediwaste Disposal','Medi-Waste Disposal','MedWaste Solutions'
+                        ,'Oncore Technology','TriHaz Solutions','Trilogy MedWaste']
     
+    #adds "or" modifying symbol to supplier_list_strings to prompt pandas to search for any term in the list
     or_pattern = '|'.join(supplier_list_strings)
 
+    #reads Invoice data to csv as formatted by dict
     df = pd.read_csv(file_path, dtype=Inv_dtype_dict)
 
+    #searches for strings in the supplier column
     df = df[df['Supplier'].str.contains(or_pattern, case=False, na=False)]
 
+    #sorts by latest record so the following drop_duplicates command keeps only the most recent invoices
     df = df.sort_values(by= 'Latest Record Date', ascending=False)
 
     #df = df.drop_duplicates(subset=['Invoice #','Supplier #'])
@@ -57,7 +67,7 @@ def dedupe_csv(folder_path, output_file):
         'Paid', 
         'Payment Date'], 
         index=False)
-    print(f"Weekly Invoice dataframe saved to {output_file}")
+    print(f"Monthly Addendum Invoice dataframe saved to {output_file}")
 
 # Example usage
     
@@ -107,7 +117,7 @@ Inv_dtype_dict = {'Invoice #': 'str',
 
 #folder_path = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/DATAMART COMPILE TEST/'
 folder_path = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/'
-output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Weekly Adhoc Invoice Report Data.csv'
+output_file = 'C:/Users/MatthewHieger/Documents/My Tableau Repository/Datasources/Coupa Datamart/Monthly Addendum Invoice Report Data.csv'
 
 dedupe_csv(folder_path, output_file)
 

@@ -23,13 +23,17 @@ fourdaysago_month = (today - timedelta(days=4)).month
 fourdaysago_day = (today - timedelta(days=4)).day
 
 archive_file_prefixes = [ f"drive-download-{year:04d}{month:02d}{day:02d}",
-f"Invoice LI Datamart - Daily_{year:04d}-{month:02d}-{day:02d}",
-f"PO LI Datamart - Daily_{year:04d}-{month:02d}-{day:02d}",
-f"Invoice LI Datamart - Daily_{yesterday_year:04d}-{yesterday_month:02d}-{yesterday_day:02d}",
-f"PO LI Datamart - Daily_{yesterday_year:04d}-{yesterday_month:02d}-{yesterday_day:02d}",
-f"Invoice LI Datamart - Daily_{twodaysago_year:04d}-{twodaysago_month:02d}-{twodaysago_day:02d}",
-f"PO LI Datamart - Daily_{twodaysago_year:04d}-{twodaysago_month:02d}-{twodaysago_day:02d}"
-]
+    f"Invoice LI Datamart - Daily_{year:04d}-{month:02d}-{day:02d}",
+    f"PO LI Datamart - Daily_{year:04d}-{month:02d}-{day:02d}",
+    f"Invoice LI Datamart - Daily_{yesterday_year:04d}-{yesterday_month:02d}-{yesterday_day:02d}",
+    f"PO LI Datamart - Daily_{yesterday_year:04d}-{yesterday_month:02d}-{yesterday_day:02d}",
+    f"Invoice LI Datamart - Daily_{twodaysago_year:04d}-{twodaysago_month:02d}-{twodaysago_day:02d}",
+    f"PO LI Datamart - Daily_{twodaysago_year:04d}-{twodaysago_month:02d}-{twodaysago_day:02d}"
+    f"Invoice LI Datamart - Daily_{threedaysago_year:04d}-{threedaysago_month:02d}-{threedaysago_day:02d}",
+    f"PO LI Datamart - Daily_{threedaysago_year:04d}-{threedaysago_month:02d}-{threedaysago_day:02d}"
+    f"Invoice LI Datamart - Daily_{fourdaysago_year:04d}-{fourdaysago_month:02d}-{fourdaysago_day:02d}",
+    f"PO LI Datamart - Daily_{fourdaysago_year:04d}-{fourdaysago_month:02d}-{fourdaysago_day:02d}"
+    ]
 
 print(archive_file_prefixes)
 
