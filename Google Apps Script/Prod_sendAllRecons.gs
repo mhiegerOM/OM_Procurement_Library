@@ -57,7 +57,7 @@ function sendAllReconEmailsToStakeholders() {
     ["rbang@onemedical.com", "mhieger@onemedical.com"], 
     "CDW Weekly Invoice Recon " + thisMonday);
   sendMostRecentReconToStakeholderEmail("1Z88sZnnGiB1MRPSDDE72qXbuSXC7NFza", 
-    ["dchevrette@cmecorp.com", "awood@onemedical.com"], 
+    ["pgardner@cmecorp.com", "awood@onemedical.com"], 
     ["rbang@onemedical.com", "mhieger@onemedical.com"], 
     "CME Weekly Invoice Recon " + thisMonday);
   sendMostRecentReconToStakeholderEmail("19ETmWITy3QP4qM-Xu-gQpMjoOihfPpqj", 
